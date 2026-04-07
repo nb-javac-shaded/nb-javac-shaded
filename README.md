@@ -32,14 +32,14 @@ Add the JitPack repository and dependencies to your `pom.xml`:
 <dependencies>
   <!-- Main compiler JAR -->
   <dependency>
-    <groupId>com.github.nb-javac-shaded.nbjavac-shaded</groupId>
+    <groupId>com.github.nb-javac-shaded.nb-javac-shaded</groupId>
     <artifactId>nb-javac-shaded</artifactId>
     <version>jdk-26+35</version>
   </dependency>
   
   <!-- API JAR -->
   <dependency>
-    <groupId>com.github.nb-javac-shaded.nbjavac-shaded</groupId>
+    <groupId>com.github.nb-javac-shaded.nb-javac-shaded</groupId>
     <artifactId>nb-javac-api-shaded</artifactId>
     <version>jdk-26+35</version>
   </dependency>
@@ -91,7 +91,7 @@ This project is published via JitPack:
 
 1. Create and push a tag matching the nb-javac version: `git tag jdk-26+35 && git push --tags`
 2. JitPack automatically builds when someone requests the version
-3. View build status at: https://jitpack.io/#nb-javac-shaded/nbjavac-shaded
+3. View build status at: https://jitpack.io/#nb-javac-shaded/nb-javac-shaded
 
 ## License
 

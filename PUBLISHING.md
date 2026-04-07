@@ -2,7 +2,7 @@
 
 ## Initial Setup
 
-1. **GitHub repository**: https://github.com/nb-javac-shaded/nbjavac-shaded
+1. **GitHub repository**: https://github.com/nb-javac-shaded/nb-javac-shaded
 
 2. **Create and push a release tag** (matching the nb-javac version):
    ```bash
@@ -24,12 +24,12 @@ Once published to JitPack, consumers can use it by adding:
 
 <dependencies>
   <dependency>
-    <groupId>com.github.nb-javac-shaded.nbjavac-shaded</groupId>
+    <groupId>com.github.nb-javac-shaded.nb-javac-shaded</groupId>
     <artifactId>nb-javac-shaded</artifactId>
     <version>jdk-26+35</version>
   </dependency>
   <dependency>
-    <groupId>com.github.nb-javac-shaded.nbjavac-shaded</groupId>
+    <groupId>com.github.nb-javac-shaded.nb-javac-shaded</groupId>
     <artifactId>nb-javac-api-shaded</artifactId>
     <version>jdk-26+35</version>
   </dependency>
@@ -39,7 +39,7 @@ Once published to JitPack, consumers can use it by adding:
 ## Build Status
 
 After pushing the tag, check the build at:
-- https://jitpack.io/#nb-javac-shaded/nbjavac-shaded
+- https://jitpack.io/#nb-javac-shaded/nb-javac-shaded
 
 The first request triggers the build. It may take a few minutes.
 
