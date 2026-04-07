@@ -1,5 +1,2 @@
 jdk:
   - openjdk21
-before_install:
-  - mvn install:install-file -Dfile=lib/nb-javac-jdk-26+27.jar -DgroupId=local -DartifactId=nb-javac-original -Dversion=26.27 -Dpackaging=jar -DgeneratePom=true
-  - mvn install:install-file -Dfile=lib/nb-javac-jdk-26+27-api.jar -DgroupId=local -DartifactId=nb-javac-api-original -Dversion=26.27 -Dpackaging=jar -DgeneratePom=true

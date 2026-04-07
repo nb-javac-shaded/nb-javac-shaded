@@ -8,7 +8,14 @@ Shaded versions of [nb-javac](https://github.com/oracle/nb-javac) to avoid OSGi/
 
 nb-javac provides a backported Java compiler that allows parsing modern Java syntax (Java 26+) while running on Java 8. However, when bundling nb-javac JARs in an Eclipse/OSGi environment, the Equinox classloader conflicts with JDK classes in packages like `com.sun.tools.javac.*`, causing `ClassCastException`s.
 
-This project shades nb-javac by relocating all packages to use a `shaded.` prefix, eliminating classloader conflicts.
+This project fetches nb-javac from Maven Central and shades it by relocating all packages to use a `shaded.` prefix, eliminating classloader conflicts.
+
+## Upstream
+
+This project shades the official nb-javac releases published by DukeScript at:
+- Maven Central: `com.dukescript.nbjavac:nb-javac`
+- Current version: `jdk-26+35`
+- Source: https://github.com/oracle/nb-javac
 
 ## Usage
 
@@ -27,14 +34,14 @@ Add the JitPack repository and dependencies to your `pom.xml`:
   <dependency>
     <groupId>com.github.nb-javac-shaded.nbjavac-shaded</groupId>
     <artifactId>nb-javac-shaded</artifactId>
-    <version>26.27</version>
+    <version>jdk-26+35</version>
   </dependency>
   
   <!-- API JAR -->
   <dependency>
     <groupId>com.github.nb-javac-shaded.nbjavac-shaded</groupId>
     <artifactId>nb-javac-api-shaded</artifactId>
-    <version>26.27</version>
+    <version>jdk-26+35</version>
   </dependency>
 </dependencies>
 ```
@@ -57,42 +64,34 @@ All packages are prefixed with `shaded.`:
 
 ## Building
 
-1. Place the original nb-javac JARs in the `lib/` directory:
-   - `lib/nb-javac-jdk-26+27.jar`
-   - `lib/nb-javac-jdk-26+27-api.jar`
+Build the shaded JARs:
+```bash
+mvn clean install
+```
 
-2. Install the original JARs to your local Maven repository (one-time step):
-   ```bash
-   mvn install:install-file -Dfile=lib/nb-javac-jdk-26+27.jar \
-       -DgroupId=local -DartifactId=nb-javac-original \
-       -Dversion=26.27 -Dpackaging=jar -DgeneratePom=true
-   
-   mvn install:install-file -Dfile=lib/nb-javac-jdk-26+27-api.jar \
-       -DgroupId=local -DartifactId=nb-javac-api-original \
-       -Dversion=26.27 -Dpackaging=jar -DgeneratePom=true
-   ```
+Find shaded JARs in:
+- `nb-javac-shaded/target/nb-javac-shaded-jdk-26+35.jar`
+- `nb-javac-api-shaded/target/nb-javac-api-shaded-jdk-26+35.jar`
 
-3. Build the shaded JARs:
-   ```bash
-   mvn clean install
-   ```
+The build automatically fetches `com.dukescript.nbjavac:nb-javac:jdk-26+35` from Maven Central and shades it.
 
-4. Find shaded JARs in:
-   - `nb-javac-shaded/target/nb-javac-shaded-26.27.jar` (3.6MB)
-   - `nb-javac-api-shaded/target/nb-javac-api-shaded-26.27.jar` (1.7MB)
+## Updating to newer versions
 
-## Current status
+To update to a newer nb-javac version:
 
-This build uses pre-compiled nb-javac JARs (committed to this repo under `lib/`) that include an unreleased patch for Eclipse URL handling. Once nb-javac publishes an official release containing this patch, this project can be updated to fetch and shade their published artifacts directly from Maven Central.
+1. Check for new releases at https://repo1.maven.org/maven2/com/dukescript/nbjavac/nb-javac/
+2. Update `<nbjavac.version>` in the parent `pom.xml`
+3. Update the `<version>` in all POMs to match
+4. Rebuild and test
+5. Tag and push to trigger a new JitPack build
 
 ## Publishing to JitPack
 
-This project is set up to be published via JitPack:
+This project is published via JitPack:
 
-1. Push this repository to GitHub
-2. Create and push a tag: `git tag v26.27 && git push --tags`
-3. JitPack will automatically build when someone requests the version
-4. View build status at: `https://jitpack.io/#nb-javac-shaded/nbjavac-shaded`
+1. Create and push a tag matching the nb-javac version: `git tag jdk-26+35 && git push --tags`
+2. JitPack automatically builds when someone requests the version
+3. View build status at: https://jitpack.io/#nb-javac-shaded/nbjavac-shaded
 
 ## License
 

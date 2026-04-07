@@ -7,7 +7,7 @@
     <parent>
         <groupId>shaded.nbjavac</groupId>
         <artifactId>nb-javac-shaded-parent</artifactId>
-        <version>26.27</version>
+        <version>jdk-26+35</version>
     </parent>
 
     <artifactId>nb-javac-shaded</artifactId>
@@ -31,12 +31,12 @@
                         <configuration>
                             <artifactSet>
                                 <includes>
-                                    <include>local:nb-javac-original</include>
+                                    <include>com.dukescript.nbjavac:nb-javac</include>
                                 </includes>
                             </artifactSet>
                             <filters>
                                 <filter>
-                                    <artifact>local:nb-javac-original</artifact>
+                                    <artifact>com.dukescript.nbjavac:nb-javac</artifact>
                                     <excludes>
                                         <exclude>META-INF/ct.sym/**</exclude>
                                     </excludes>
@@ -75,9 +75,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>local</groupId>
-            <artifactId>nb-javac-original</artifactId>
-            <version>26.27</version>
+            <groupId>com.dukescript.nbjavac</groupId>
+            <artifactId>nb-javac</artifactId>
+            <version>${nbjavac.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
