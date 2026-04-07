@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>shaded.nbjavac</groupId>
+        <artifactId>nb-javac-shaded-parent</artifactId>
+        <version>26.27</version>
+    </parent>
+
+    <artifactId>nb-javac-shaded</artifactId>
+    <packaging>jar</packaging>
+
+    <name>nb-javac Shaded</name>
+    <description>Shaded version of nb-javac main JAR</description>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <include>local:nb-javac-original</include>
+                                </includes>
+                            </artifactSet>
+                            <filters>
+                                <filter>
+                                    <artifact>local:nb-javac-original</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/ct.sym/**</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.sun.tools</pattern>
+                                    <shadedPattern>shaded.com.sun.tools</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.sun.source</pattern>
+                                    <shadedPattern>shaded.com.sun.source</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>javax.annotation.processing</pattern>
+                                    <shadedPattern>shaded.javax.annotation.processing</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>javax.lang</pattern>
+                                    <shadedPattern>shaded.javax.lang</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>javax.tools</pattern>
+                                    <shadedPattern>shaded.javax.tools</shadedPattern>
+                                </relocation>
+                            </relocations>
+                            <createSourcesJar>false</createSourcesJar>
+                            <shadeSourcesContent>false</shadeSourcesContent>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>local</groupId>
+            <artifactId>nb-javac-original</artifactId>
+            <version>26.27</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+</project>
