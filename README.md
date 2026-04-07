@@ -14,7 +14,7 @@ This project fetches nb-javac from Maven Central and shades it by relocating all
 
 This project shades the official nb-javac releases published by DukeScript at:
 - Maven Central: `com.dukescript.nbjavac:nb-javac`
-- Current version: `jdk-26+35`
+- Current version: `jdk-26-35`
 - Source: https://github.com/oracle/nb-javac
 
 ## Usage
@@ -34,14 +34,14 @@ Add the JitPack repository and dependencies to your `pom.xml`:
   <dependency>
     <groupId>com.github.nb-javac-shaded.nb-javac-shaded</groupId>
     <artifactId>nb-javac-shaded</artifactId>
-    <version>jdk-26+35</version>
+    <version>jdk-26-35</version>
   </dependency>
   
   <!-- API JAR -->
   <dependency>
     <groupId>com.github.nb-javac-shaded.nb-javac-shaded</groupId>
     <artifactId>nb-javac-api-shaded</artifactId>
-    <version>jdk-26+35</version>
+    <version>jdk-26-35</version>
   </dependency>
 </dependencies>
 ```
@@ -70,10 +70,10 @@ mvn clean install
 ```
 
 Find shaded JARs in:
-- `nb-javac-shaded/target/nb-javac-shaded-jdk-26+35.jar`
-- `nb-javac-api-shaded/target/nb-javac-api-shaded-jdk-26+35.jar`
+- `nb-javac-shaded/target/nb-javac-shaded-jdk-26-35.jar`
+- `nb-javac-api-shaded/target/nb-javac-api-shaded-jdk-26-35.jar`
 
-The build automatically fetches `com.dukescript.nbjavac:nb-javac:jdk-26+35` from Maven Central and shades it.
+The build automatically fetches `com.dukescript.nbjavac:nb-javac:jdk-26-35` from Maven Central and shades it.
 
 ## Updating to newer versions
 
@@ -89,7 +89,7 @@ To update to a newer nb-javac version:
 
 This project is published via JitPack:
 
-1. Create and push a tag matching the nb-javac version: `git tag jdk-26+35 && git push --tags`
+1. Create and push a tag matching the nb-javac version: `git tag jdk-26-35 && git push --tags`
 2. JitPack automatically builds when someone requests the version
 3. View build status at: https://jitpack.io/#nb-javac-shaded/nb-javac-shaded
 

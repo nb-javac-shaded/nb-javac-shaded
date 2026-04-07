@@ -6,8 +6,8 @@
 
 2. **Create and push a release tag** (matching the nb-javac version):
    ```bash
-   git tag jdk-26+35
-   git push origin jdk-26+35
+   git tag jdk-26-35
+   git push origin jdk-26-35
    ```
 
 ## Using the Published Artifact
@@ -26,12 +26,12 @@ Once published to JitPack, consumers can use it by adding:
   <dependency>
     <groupId>com.github.nb-javac-shaded.nb-javac-shaded</groupId>
     <artifactId>nb-javac-shaded</artifactId>
-    <version>jdk-26+35</version>
+    <version>jdk-26-35</version>
   </dependency>
   <dependency>
     <groupId>com.github.nb-javac-shaded.nb-javac-shaded</groupId>
     <artifactId>nb-javac-api-shaded</artifactId>
-    <version>jdk-26+35</version>
+    <version>jdk-26-35</version>
   </dependency>
 </dependencies>
 ```
