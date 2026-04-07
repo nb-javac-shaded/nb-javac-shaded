@@ -1,6 +1,6 @@
 # nb-javac Shaded
 
-[![](https://jitpack.io/v/GITHUB_USERNAME/nbjavac-shaded.svg)](https://jitpack.io/#GITHUB_USERNAME/nbjavac-shaded)
+[![](https://jitpack.io/v/nb-javac-shaded/nb-javac-shaded.svg)](https://jitpack.io/#nb-javac-shaded/nb-javac-shaded)
 
 Shaded versions of [nb-javac](https://github.com/oracle/nb-javac) to avoid OSGi/Equinox classloader conflicts.
 
@@ -25,21 +25,19 @@ Add the JitPack repository and dependencies to your `pom.xml`:
 <dependencies>
   <!-- Main compiler JAR -->
   <dependency>
-    <groupId>com.github.GITHUB_USERNAME.nbjavac-shaded</groupId>
+    <groupId>com.github.nb-javac-shaded.nbjavac-shaded</groupId>
     <artifactId>nb-javac-shaded</artifactId>
     <version>26.27</version>
   </dependency>
   
   <!-- API JAR -->
   <dependency>
-    <groupId>com.github.GITHUB_USERNAME.nbjavac-shaded</groupId>
+    <groupId>com.github.nb-javac-shaded.nbjavac-shaded</groupId>
     <artifactId>nb-javac-api-shaded</artifactId>
     <version>26.27</version>
   </dependency>
 </dependencies>
 ```
-
-Replace `GITHUB_USERNAME` with the actual GitHub username/org where this repo is published.
 
 ## What's included?
 
@@ -94,7 +92,7 @@ This project is set up to be published via JitPack:
 1. Push this repository to GitHub
 2. Create and push a tag: `git tag v26.27 && git push --tags`
 3. JitPack will automatically build when someone requests the version
-4. View build status at: `https://jitpack.io/#GITHUB_USERNAME/nbjavac-shaded`
+4. View build status at: `https://jitpack.io/#nb-javac-shaded/nbjavac-shaded`
 
 ## License
 
