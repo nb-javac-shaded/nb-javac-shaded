@@ -122,6 +122,12 @@ if [ -d "$TEMP_DIR/make" ]; then
     rm -rf "$TEMP_DIR/make"
 fi
 
+# Remove stray unshaded source files that don't have corresponding classes in compiled JAR
+# (Maven Shade sometimes leaves source files at wrong paths when it relocates packages)
+echo "Removing unshaded source files..."
+[ -d "$TEMP_DIR/sun" ] && rm -rf "$TEMP_DIR/sun"
+[ -d "$TEMP_DIR/java" ] && rm -rf "$TEMP_DIR/java"
+
 echo "Repacking sources JAR..."
 # Delete original JAR first (zip -r updates existing files instead of replacing)
 rm -f "$SOURCES_JAR"
