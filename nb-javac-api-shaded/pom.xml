@@ -64,8 +64,28 @@
                                     <shadedPattern>shaded.javax.tools</shadedPattern>
                                 </relocation>
                             </relocations>
-                            <createSourcesJar>false</createSourcesJar>
-                            <shadeSourcesContent>false</shadeSourcesContent>
+                            <createSourcesJar>true</createSourcesJar>
+                            <shadeSourcesContent>true</shadeSourcesContent>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>relocate-source-directories</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${project.basedir}/../relocate-source-dirs.sh</executable>
+                            <arguments>
+                                <argument>${project.build.directory}/${project.build.finalName}-sources.jar</argument>
+                            </arguments>
                         </configuration>
                     </execution>
                 </executions>
@@ -79,6 +99,13 @@
             <artifactId>nb-javac</artifactId>
             <version>${nbjavac.version}</version>
             <classifier>api</classifier>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.dukescript.nbjavac</groupId>
+            <artifactId>nb-javac</artifactId>
+            <version>${nbjavac.version}</version>
+            <classifier>sources</classifier>
             <scope>compile</scope>
         </dependency>
     </dependencies>
