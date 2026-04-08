@@ -101,6 +101,27 @@ if [ -d "$TEMP_DIR/make/langtools/netbeans/nb-javac/test" ]; then
     cd - > /dev/null
 fi
 
+# Flatten OpenJDK module structure (src/MODULE_NAME/share/classes/* -> *)
+echo "Flattening OpenJDK module structure..."
+if [ -d "$TEMP_DIR/src" ]; then
+    # Move all module contents to temp root
+    for MODULE_DIR in "$TEMP_DIR/src"/*; do
+        if [ -d "$MODULE_DIR/share/classes" ]; then
+            # Copy contents up to root, merging if necessary
+            cp -r "$MODULE_DIR/share/classes"/* "$TEMP_DIR/"
+        fi
+    done
+    # Remove the src directory
+    rm -rf "$TEMP_DIR/src"
+fi
+
+# Also flatten the make/langtools/netbeans/nb-javac structure if present
+if [ -d "$TEMP_DIR/make" ]; then
+    # Keep test sources but flatten unnecessary nesting - actually, just remove make/ entirely
+    # since test sources are already under shaded/ after our relocation
+    rm -rf "$TEMP_DIR/make"
+fi
+
 echo "Repacking sources JAR..."
 # Delete original JAR first (zip -r updates existing files instead of replacing)
 rm -f "$SOURCES_JAR"
