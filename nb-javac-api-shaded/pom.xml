@@ -46,6 +46,9 @@
                                 <relocation>
                                     <pattern>com.sun.tools</pattern>
                                     <shadedPattern>shaded.com.sun.tools</shadedPattern>
+                                    <excludes>
+                                        <exclude>com.sun.tools.doclint.**</exclude>
+                                    </excludes>
                                 </relocation>
                                 <relocation>
                                     <pattern>com.sun.source</pattern>

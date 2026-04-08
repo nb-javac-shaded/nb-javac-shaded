@@ -115,16 +115,45 @@ if [ -d "$TEMP_DIR/src" ]; then
     rm -rf "$TEMP_DIR/src"
 fi
 
+# Extract nbjavac sources from make/ before removing it
+if [ -d "$TEMP_DIR/make/langtools/netbeans/nb-javac/src/nbjavac" ]; then
+    echo "Extracting nbjavac sources from make/ directory..."
+    mkdir -p "$TEMP_DIR/nbjavac"
+    cp -r "$TEMP_DIR/make/langtools/netbeans/nb-javac/src/nbjavac"/* "$TEMP_DIR/nbjavac/"
+fi
+
 # Also flatten the make/langtools/netbeans/nb-javac structure if present
 if [ -d "$TEMP_DIR/make" ]; then
-    # Keep test sources but flatten unnecessary nesting - actually, just remove make/ entirely
-    # since test sources are already under shaded/ after our relocation
+    # Remove make/ entirely since test sources are already under shaded/ after our relocation
+    # and we've extracted nbjavac sources above
     rm -rf "$TEMP_DIR/make"
 fi
 
-# Remove stray unshaded source files that don't have corresponding classes in compiled JAR
+# Handle nbjavac package sources that are in wrong directories
+# nb-javac keeps files in OpenJDK structure but changes package to 'nbjavac'
+echo "Relocating nbjavac package sources..."
+mkdir -p "$TEMP_DIR/nbjavac"
+
+for DIR in "$TEMP_DIR/java" "$TEMP_DIR/sun"; do
+    if [ -d "$DIR" ]; then
+        # Find all .java files and check their package declaration
+        find "$DIR" -name "*.java" -type f | while read JAVA_FILE; do
+            # Extract package declaration (look for "package nbjavac;")
+            PACKAGE=$(grep -m1 "^package " "$JAVA_FILE" | sed 's/package \(.*\);/\1/' | tr -d ' ')
+
+            if [ "$PACKAGE" = "nbjavac" ]; then
+                # Move to nbjavac directory, keeping just the filename
+                FILENAME=$(basename "$JAVA_FILE")
+                echo "  Moving $(basename $(dirname $JAVA_FILE))/$FILENAME to nbjavac/"
+                mv "$JAVA_FILE" "$TEMP_DIR/nbjavac/$FILENAME"
+            fi
+        done
+    fi
+done
+
+# Remove remaining unshaded source files that don't have corresponding classes in compiled JAR
 # (Maven Shade sometimes leaves source files at wrong paths when it relocates packages)
-echo "Removing unshaded source files..."
+echo "Removing remaining unshaded source files..."
 [ -d "$TEMP_DIR/sun" ] && rm -rf "$TEMP_DIR/sun"
 [ -d "$TEMP_DIR/java" ] && rm -rf "$TEMP_DIR/java"
 
