@@ -6,7 +6,7 @@
 
     <groupId>shaded.nbjavac</groupId>
     <artifactId>nb-javac-shaded-parent</artifactId>
-    <version>jdk-26+35</version>
+    <version>jdk-26-35</version>
     <packaging>pom</packaging>
 
     <name>nb-javac Shaded Parent</name>
@@ -21,7 +21,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <nbjavac.version>jdk-26+35</nbjavac.version>
+        <nbjavac.version>jdk-26+35</nbjavac.version>  <!-- nb-javac upstream version with + -->
     </properties>
 
 </project>
