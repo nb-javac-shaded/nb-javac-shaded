@@ -36,7 +36,7 @@ jobs:
         body: |
           ## nb-javac Shaded ${{ steps.version.outputs.VERSION }}
 
-          Shaded versions of nb-javac to avoid OSGi/Equinox classloader conflicts.
+          Shaded versions of nb-javac with all packages relocated to `shaded.*` prefix to avoid classloader conflicts with JDK classes.
 
           ### Artifacts
           - `nb-javac-shaded-${{ steps.version.outputs.VERSION }}.jar` - Main compiler JAR (3.6MB)
