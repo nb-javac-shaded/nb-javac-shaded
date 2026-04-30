@@ -52,6 +52,20 @@ Two shaded artifacts:
 - `nb-javac-shaded` - main compiler JAR (3.6MB)
 - `nb-javac-api-shaded` - API JAR (1.7MB)
 
+### Companion Artifact: nnb-doclint-shaded
+
+For DocLint functionality with shaded nb-javac, use the companion artifact:
+
+```xml
+<dependency>
+    <groupId>shaded.nbjavac</groupId>
+    <artifactId>nnb-doclint-shaded</artifactId>
+    <version>jdk-26-35</version>
+</dependency>
+```
+
+See: https://github.com/nb-javac-shaded/nnb-doclint-shaded
+
 ## Package relocations
 
 All packages are prefixed with `shaded.`:
