@@ -1,0 +1,72 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'jdk-*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up JDK 8
+      uses: actions/setup-java@v4
+      with:
+        java-version: '8'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Build with Maven
+      run: mvn -B clean package --file pom.xml
+
+    - name: Extract version from tag
+      id: version
+      run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        name: Release ${{ steps.version.outputs.VERSION }}
+        body: |
+          ## nb-javac Shaded ${{ steps.version.outputs.VERSION }}
+
+          Shaded versions of nb-javac to avoid OSGi/Equinox classloader conflicts.
+
+          ### Artifacts
+          - `nb-javac-shaded-${{ steps.version.outputs.VERSION }}.jar` - Main compiler JAR (3.6MB)
+          - `nb-javac-api-shaded-${{ steps.version.outputs.VERSION }}.jar` - API JAR (1.7MB)
+          - `*-sources.jar` - Corresponding sources JARs
+
+          ### Maven Dependencies (via JitPack)
+          ```xml
+          <!-- Main compiler JAR -->
+          <dependency>
+              <groupId>com.github.nb-javac-shaded.nb-javac-shaded</groupId>
+              <artifactId>nb-javac-shaded</artifactId>
+              <version>${{ steps.version.outputs.VERSION }}</version>
+          </dependency>
+
+          <!-- API JAR -->
+          <dependency>
+              <groupId>com.github.nb-javac-shaded.nb-javac-shaded</groupId>
+              <artifactId>nb-javac-api-shaded</artifactId>
+              <version>${{ steps.version.outputs.VERSION }}</version>
+          </dependency>
+          ```
+
+          ### Companion Artifact
+          For DocLint functionality, also use: [nnb-doclint-shaded](https://github.com/nb-javac-shaded/nnb-doclint-shaded)
+
+          See the [README](https://github.com/nb-javac-shaded/nb-javac-shaded#readme) for full usage instructions.
+        files: |
+          nb-javac-shaded/target/*.jar
+          nb-javac-api-shaded/target/*.jar
+          !**/target/original-*.jar
+        draft: false
+        prerelease: false
