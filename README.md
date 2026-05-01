@@ -109,4 +109,10 @@ This project is published via JitPack:
 
 ## License
 
-This project only repackages nb-javac. nb-javac is licensed under GPL-2.0. See [nb-javac's license](https://github.com/oracle/nb-javac/blob/master/LICENSE) for details.
+This project repackages nb-javac, which is derived from OpenJDK. The code is licensed under **GPL v2 with Classpath Exception**.
+
+The Classpath Exception allows you to link this library with independent modules to produce an executable, regardless of the license terms of these independent modules, without causing the resulting executable to be covered by the GNU General Public License.
+
+See the [LICENSE](LICENSE) file for the full GPL v2 license text and Classpath Exception terms.
+
+Original nb-javac license: https://github.com/oracle/nb-javac/blob/master/LICENSE
